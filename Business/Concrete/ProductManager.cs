@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Abstract.Results;
+using Core.Utilities.Results.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,9 +18,44 @@ namespace Business.Concrete
             _prodcutDal = prodcutDal;
         }
 
-        public List<Product> GetAll()
+        public IResult Add(Product product)
         {
-            return _prodcutDal.GetAll();
+            throw new NotImplementedException();
+        }
+
+        public IResult AddTransactionalTest(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Product>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Product>> GetAllByCategoryId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<Product> GetById(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Product>> GetProductDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResult Update(Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }
