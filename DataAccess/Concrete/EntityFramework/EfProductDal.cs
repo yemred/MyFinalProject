@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Linq;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
     {
-        /* public List<ProductDetailDto> GetProdcutDetails()
+         public List<ProductDetailDto> GetProdcutDetails()
          {
              using (NorthwindContext context = new NorthwindContext())
              {
@@ -28,10 +29,7 @@ namespace DataAccess.Concrete.EntityFramework
                               };
                  return result.ToList();
              }
-         }*/
-        public List<ProductDetailDto> GetProdcutDetails()
-        {
-            throw new NotImplementedException();
-        }
+         }
+      
     }
 }
