@@ -1,5 +1,7 @@
 ﻿namespace Core.Entities.Concrete
 {
+
+    // Hangi Kullanıcının Hangi Calim'e sahip olduğunu gösteren tablo. ( Hangi Kullanıcının hangi yetkileri var )
     public class UserOperationClaim : IEntity
     {
         public int Id { get; set; }

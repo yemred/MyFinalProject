@@ -21,12 +21,11 @@ namespace WebAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())     // Autofac eklemek için yazdýk. Ezberlenecek kod deðil. Ezberleme. Core altyapýnda IoC var onu kullanma Autofac kullan dioruz.
-                .ConfigureContainer<ContainerBuilder>(builder =>                    // eklediðimiz IoC Container. Core'un kendi IoC sini kullanmadýðýmýz içiçn ekledik
-                {                                                                   // eklediðimiz IoC Container. Core'un kendi IoC sini kullanmadýðýmýz içiçn ekledik
-                    builder.RegisterModule(new AutofacBusinessModule());            // eklediðimiz IoC Container. Core'un kendi IoC sini kullanmadýðýmýz içiçn ekledik
-                }                                                                   // eklediðimiz IoC Container. Core'un kendi IoC sini kullanmadýðýmýz içiçn ekledik
-                )                                                                   // eklediðimiz IoC Container. Core'un kendi IoC sini kullanmadýðýmýz içiçn ekledik
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureContainer<ContainerBuilder>(builder =>
+                {
+                    builder.RegisterModule(new AutofacBusinessModule());
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
