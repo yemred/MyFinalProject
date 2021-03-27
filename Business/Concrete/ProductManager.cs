@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcens.Validation;
 using Core.Utilities.Abstract.Results;
@@ -32,6 +33,7 @@ namespace Business.Concrete
 
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]   // Method Success olduğunda çalışacak. Bellekteki IProducService içerisinde tüm Get olan tüm Key leri sil demek
         public IResult Add(Product product)
         {
             // Pollymorhizm'e iyi bir örnek
@@ -54,7 +56,10 @@ namespace Business.Concrete
         {
             throw new NotImplementedException();
         }
-
+        //
+        // Her methodun üstüne cache koymak doğru değildir. Cache şişer.
+        // Onun için en çok kullanılan en çok ihtiyacı olan yerlere konur cache aspect'i
+        [CacheAspect] // key (cache ismi), value
         public IDataResult<List<Product>> GetAll()
         {
             if(DateTime.Now.Hour == 1)
@@ -70,6 +75,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        [CacheAspect]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_prodcutDal.Get(p => p.ProductId == productId));
@@ -86,6 +92,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]   // Method Success olduğunda çalışacak. Bellekteki IProducService içerisinde tüm Get olan tüm Key leri sil demek
         public IResult Update(Product product)
         {
             throw new NotImplementedException();

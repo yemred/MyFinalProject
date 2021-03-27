@@ -9,7 +9,7 @@ namespace Core.CrossCuttingConcens.Validation
     {
         public static void Validate(IValidator validator, object entity)
         {
-            // Fluent Validator dökümantasyondan geliyor. Kyllanım şekli
+            // Fluent Validator dökümantasyondan geliyor. Kullanım şekli
             var context = new ValidationContext<object>(entity);
 
             var result = validator.Validate(context);
