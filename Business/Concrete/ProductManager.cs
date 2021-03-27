@@ -3,6 +3,8 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcens.Validation;
 using Core.Utilities.Abstract.Results;
@@ -21,6 +23,7 @@ namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
+        //
         //Bir Servise sadece kendinin dalını alabilir
         IProductDal _prodcutDal;                                // Şu Demek Sen bana IPRoductDal referansı var. Yarın Hibernate de olabilir, EntityFramework'te olabilir, InMemory de olabilir demek
         ICategoryService _categoryService;                      // Micro Servis örneğidir.
@@ -36,6 +39,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IProductService.Get")]   // Method Success olduğunda çalışacak. Bellekteki IProducService içerisinde tüm Get olan tüm Key leri sil demek
         public IResult Add(Product product)
         {
+            //
             // Pollymorhizm'e iyi bir örnek
            IResult result =  BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId),
                CheckIfProductNameExist(product.ProductName),
@@ -52,10 +56,23 @@ namespace Business.Concrete
             
         }
 
+        //
+        // Database eklemede bir hata oluşursa, işlemi ya hep yap ya hiç yapma
+        //[TransactionScopeAspect]
         public IResult AddTransactionalTest(Product product)
         {
-            throw new NotImplementedException();
+            Add(product);
+
+            if (product.UnitPrice < 10)
+            {
+                throw new Exception("");
+            }
+
+            Add(product);
+
+            return null;
         }
+
         //
         // Her methodun üstüne cache koymak doğru değildir. Cache şişer.
         // Onun için en çok kullanılan en çok ihtiyacı olan yerlere konur cache aspect'i
@@ -76,6 +93,7 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
+        //[PerformanceAspect(5)] // Bu methodun çalışması 5 saniyeyi geçerse beni uyar.
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_prodcutDal.Get(p => p.ProductId == productId));

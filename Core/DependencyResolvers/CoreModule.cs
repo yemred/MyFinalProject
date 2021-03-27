@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Core.DependencyResolvers
@@ -13,14 +14,17 @@ namespace Core.DependencyResolvers
     public class CoreModule : ICoreModule
     {
         // Genel bağımlılıkları yüklüyoruz. Injectionları
-        public void Load(IServiceCollection serviceCollection)
+        public void Load(IServiceCollection services)
         {
             //Startup ta yaptığımızı sildik burda yaptık. Çünkü bütün projelerde ortak
-            serviceCollection.AddMemoryCache(); // .Net kendisinin. MemoryCache in karşılığı
+            services.AddMemoryCache(); // .Net kendisinin. MemoryCache in karşılığı
 
             //Arka planda bana HTTPContextAccessor instance oluştur demek
-            serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ICacheManager, MemoryCacheManager>();
+
+            services.AddSingleton<Stopwatch>();
+
         }
     }
 }
