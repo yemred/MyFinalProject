@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Core.DataAcess
 {
+    //
+    // Generic constraint
+    // class : referans tip
+    // IEntity : IEntity olabilir veya I Entity implemente eden nesne olabilir
     public interface IEntityRepository<T> where T : class, IEntity, new()
     {
         //
