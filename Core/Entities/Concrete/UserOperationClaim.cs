@@ -1,4 +1,6 @@
-﻿namespace Core.Entities.Concrete
+﻿using Core.Entities.Abstract;
+
+namespace Core.Entities.Concrete
 {
 
     // Hangi Kullanıcının Hangi Calim'e sahip olduğunu gösteren tablo. ( Hangi Kullanıcının hangi yetkileri var )
