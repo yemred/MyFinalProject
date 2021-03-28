@@ -14,6 +14,11 @@ namespace Core.DataAcess.EntityFramework
     {
         public void Add(TEntity entity)
         {
+            //
+            // Disposable Pattern:
+            // Using kullanımı disposable pattern'e örnektir.
+            // Performans kazancı için çok önemlidir.
+            // Using bittiğinde Garbace Collector tarafında atılmasını sağlar.
             using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity); // Db den bulur
