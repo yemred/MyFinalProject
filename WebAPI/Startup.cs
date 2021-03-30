@@ -38,6 +38,10 @@ namespace WebAPI
             services.AddRazorPages();
             services.AddControllers();
 
+            //
+            // Cors injection ý yapýyoruz. Frontend ile backend baðlarken url eþitlemeye yarýyor.
+            services.AddCors(); 
+
             // sonradan eklendi
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -80,6 +84,10 @@ namespace WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //
+            // Cors injection ý yapýyoruz. Frontend ile backend baðlarken url eþitlemeye yarýyor. Frontedn Urlsi.Get, Post için
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200/").AllowAnyHeader());
 
             //Aþþaðýdakiler middleware. Hangi yapýlarýn sýrasýyla devreye girceðini söylüyor.
 
