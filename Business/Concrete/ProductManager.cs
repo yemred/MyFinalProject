@@ -89,7 +89,9 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            throw new NotImplementedException();
+          
+           return new SuccessDataResult<List<Product>>(_prodcutDal.GetAll(p => p.CategoryId == id));
+           
         }
 
         [CacheAspect]
