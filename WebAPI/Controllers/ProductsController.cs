@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getByCategory")]
+        [HttpGet("getbycategory")]
         public IActionResult GetByCategory(int categoryId)
         {
 

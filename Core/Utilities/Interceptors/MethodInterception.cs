@@ -9,9 +9,14 @@ namespace Core.Utilities.Interceptors
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, System.Exception e) { }
         protected virtual void OnSuccess(IInvocation invocation) { }
+
+        //
+        // Method = invocation
         public override void Intercept(IInvocation invocation)
         {
             var isSuccess = true;
+            //
+            // Methodun başında çalışır
             OnBefore(invocation);
             try
             {
@@ -27,9 +32,13 @@ namespace Core.Utilities.Interceptors
             {
                 if (isSuccess)
                 {
+                    //
+                    // Method başarılı olursa
                     OnSuccess(invocation);
                 }
             }
+            //
+            // Methodun sonunda çalışır
             OnAfter(invocation);
         }
     }
