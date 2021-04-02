@@ -7,6 +7,7 @@ namespace Core.Utilities.Business
 {
     public class BusinessRules
     {
+        //
         // Run içerisine istediğimiz kadar IResult verebiliyoruz parametre olarak
         public static IResult Run(params IResult[] logics)
         {
@@ -14,7 +15,9 @@ namespace Core.Utilities.Business
             {
                 if (!logic.Success)
                 {
-                    return logic;   // Hatalı logic geri döndürüyor. Oda logiğin içindeki error çalıştırır
+                    //
+                    // Hatalı logic geri döndürüyor. Oda logiğin içindeki error çalıştırır
+                    return logic;   
                 }
             }
             return null;
