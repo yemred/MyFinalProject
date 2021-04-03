@@ -35,7 +35,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //services.AddRazorPages();
             services.AddControllers();
 
             //
@@ -78,12 +78,14 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            /*else
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+            }*/
+
+            app.ConfigureCustomExceptionMiddleware();
 
             //
             // Cors injection ý yapýyoruz. Frontend ile backend baðlarken url eþitlemeye yarýyor. Frontedn Urlsi.Get, Post için
