@@ -6,11 +6,16 @@ namespace Core.Utilities.Security.Hashing
 {
     public class HashingHelper
     {
+        //
+        // out keyword'ünü birden çok veri dödürceğimiz zamanda kullanabiliriz. Bu functiondan passwordHash ve passwordSalt döner
         public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
+            //
             //Dissposible Pattern. Using bitince garbageCollector temizler
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
+                //
+                // salt olarak bu değeri veriyoruz. Her kullanıcı için bir key oluşturur
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }

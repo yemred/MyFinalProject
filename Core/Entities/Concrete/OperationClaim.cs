@@ -2,7 +2,7 @@
 
 namespace Core.Entities.Concrete
 {
-    // Yetkileri Tutan tablomuz.
+    // Yetkileri Tutan tablomuz. Admin, Edidör gibi
     public class OperationClaim : IEntity
     {
         public int Id { get; set; }
