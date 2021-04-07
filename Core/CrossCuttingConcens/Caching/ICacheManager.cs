@@ -6,19 +6,26 @@ namespace Core.CrossCuttingConcens.Caching
 {
     public interface ICacheManager
     {
+        //
         //Generic Version Get
         T Get<T>(string key);
         
+        //
         //Generic Olmayan version Get
         object Get(string key);
+
+        //
+        // Cache ekleme => key,value
         void Add(string key, object value, int duration);
 
+        //
         //Cache de var mı ?  Kontrol
         bool IsAdd(string key);
 
+        //
         //Cache den silme
         void Remove(string key);
 
-        void RemoveByPattern(string patter);
+        void RemoveByPattern(string pattern);
     }
 }

@@ -10,12 +10,15 @@ using System.Linq;
 namespace Core.CrossCuttingConcens.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
-    {
+    { 
         // microsoft'un interface'i. Adapter Pattern yani kendi sistemimize uyarlıyoruz. Orjinal halini değiştiriyoruz
         IMemoryCache _memoryCache;
 
         public MemoryCacheManager()
         {
+            //
+            // API -> Business -> Dataacces zincirinin dışında aspect bağımlılığı.
+            // O yüzden yazdığımız serviceTool kullancaz. 
             _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();
         }
         public void Add(string key, object value, int duration)
@@ -51,7 +54,6 @@ namespace Core.CrossCuttingConcens.Caching.Microsoft
         {
             //
             // Cache datalarını microsoft EntiresCollection içine atıyor. ( Dökümantasyonda daha fazla bilgi içerir )
-            // 
             var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             //
